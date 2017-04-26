@@ -24,27 +24,6 @@ html, body {
   width: 100%;
   overflow: hidden;
   background-color: #ddd;
-
-  @at-root {
-    .imgFigure {
-      position: absolute;
-      display: inline-block;
-      padding: 30px;
-      padding-bottom: 0;
-      background-color: #fff;
-    }
-    .img {
-      width: 213px;
-      height: 320px;
-    }
-    .imgTitle {
-      text-align: center;
-      margin: 4px;
-    }
-    figure {
-
-    }
-  }
 }
 /*img end*/
 
