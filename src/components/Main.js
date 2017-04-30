@@ -3,113 +3,15 @@ import 'styles/App.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ImgFigure from './ImgFigure'
+import ImgControl from './ImgControl'
 import imageJsonDatas from '../data/imageDatas.json';
+import {getRangeRandom, get30degRandom} from '../util/util'
 
 const imageDatas = imageJsonDatas.map((image) => {
   image.imgUrl = require(`../images/${image.fileName}`);
   return image;
 });
-
-// 返回一个随机值
-function getRangeRandom(low, hight) {
-  return Math.ceil(Math.random() * (hight - low) + low);
-}
-
-// 返回一个+-30deg之间的数值
-function get30degRandom() {
-  return ((Math.random() > 0.5 ? '' : '-' ) + Math.ceil(Math.random() * 30) + 'deg')
-}
-
-// 图片组件
-class ImgFigure extends React.Component {
-  constructor(props) {
-    super(props)
-    this.changeBack = function() {
-      console.log(event)
-    }
-  }
-
-  render() {
-    var styleObj = {};
-    var clickHand = null;
-
-    // 如果props指定位置则使用
-    if (this.props.arrange.pos) {
-        styleObj = this.props.arrange.pos
-    }
-    // 如果指定旋转角度
-    if (this.props.arrange.rotate) {
-      (['', 'WebKit', 'ms', 'Moz']).forEach((v)=>{
-          styleObj[v + 'transform'] = 'rotate(' + this.props.arrange.rotate + ')';
-      })
-    }
-    // 如果为中心图片
-    if (this.props.arrange.isCenter) {
-      clickHand = this.props.inverse;
-      styleObj['zIndex'] = '100';
-    } else {
-      clickHand = this.props.center;
-    }
-
-    var imgClassName = 'imgFigure';
-    imgClassName += this.props.arrange.isInverse ? ' isInverse': '';
-
-    var data = this.props.data;
-
-    return (
-      <figure
-        className={imgClassName}
-        style={styleObj}
-        onClick={clickHand}
-        >
-        <img
-          src={data.imgUrl}
-          alt={data.title}
-          className='img'
-          />
-        <figcaption>
-          <h2
-            className='imgTitle'
-            >
-            {data.title}
-          </h2>
-        </figcaption>
-        <div
-          className='imgBack'
-          >
-          <p>{data.desc}</p>
-        </div>
-      </figure>
-    )
-  }
-}
-
-
-class ImgControl extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  handleClick(e){
-    e.stopPropagation();
-    e.preventDefault();
-
-    if(this.props.arrange.isCenter){
-        this.props.inverse();
-    }else {
-        this.props.center();
-    }
-  }
-
-  render () {
-    let spanClass = 'controller-unit iconfont ' + (this.props.arrange.isCenter ? ' is-center':'') + (this.props.arrange.isInverse? ' is-inverse' : '');
-
-    return(
-      <span className={spanClass} onClick={this.handleClick.bind(this)}> </span>
-    )
-  }
-}
-
 
 // 舞台组件
 class AppComponent extends React.Component {
@@ -228,8 +130,6 @@ class AppComponent extends React.Component {
       }.bind(this);
     }
   }
-
-
 
 // 初始化舞台数据
   componentDidMount() {
