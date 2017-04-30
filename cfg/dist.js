@@ -38,6 +38,5 @@ config.module.loaders.push({
     [ path.join(__dirname, '/../src') ]
   )
 });
-config.publicPath = './assets/';
 
 module.exports = config;

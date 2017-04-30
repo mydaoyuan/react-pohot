@@ -63,6 +63,7 @@ function getDefaultModules() {
 module.exports = {
   srcPath: srcPath,
   publicPath: '/assets/',
+  // publicPath: './assets/',  //dist时使用相对路径引用
   port: dfltPort,
   getDefaultModules: getDefaultModules
 };
